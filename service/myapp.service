@@ -1,0 +1,16 @@
+[Unit]
+Description=Gunicorn instance to serve app
+After=network.target
+
+
+[Service]
+User=nginx
+Group=nginx
+WorkingDirectory=/opt/myapp/
+Environment="PATH=/opt/myapp/venv/bin"
+ExecStart=/opt/myapp/venv/bin/gunicorn --workers 3 --bind unix:app.sock -m 007 wsgi:app
+
+
+[Install]
+WantedBy=multi-user.target
+
