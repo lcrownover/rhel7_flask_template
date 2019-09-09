@@ -18,9 +18,9 @@ sed -i "s/server_name .*/server_name $(hostname)/" nginx/myapp.conf
 ln -s $DIR/nginx/myapp.conf /etc/nginx/conf.d/myapp.conf
 
 # Edit and copy the service file to systemd location
-sed -i "s/WorkingDirectory=.*/WorkingDirectory=$DIR/" service/myapp.service
-sed -i "s/Environment=\"PATH=.*\"/Environment=\"PATH=$DIR/venv/bin\"/" service/myapp.service
-sed -i "s/ExecStart=.*? /Execstart=$DIR/venv/bin/gunicorn /" service/myapp.service
+sed -i "s@WorkingDirectory=.*@WorkingDirectory=$DIR@" service/myapp.service
+sed -i "s@Environment=\"PATH=.*\"@Environment=\"PATH=$DIR/venv/bin\"@" service/myapp.service
+sed -i "s@ExecStart=.*? @Execstart=$DIR/venv/bin/gunicorn @" service/myapp.service
 cp service/myapp.server /etc/systemd/system/
 
 
